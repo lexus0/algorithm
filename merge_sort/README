@@ -1,0 +1,6 @@
+
+這個只是merge sort的核心, 並沒有包括切的部份。
+主要就是把兩個array, 從第一個元素開始比起。
+比較小的就送到sortedArray, 然後iterator + 1。
+
+[ref] https://leetcode.com/problems/merge-sorted-array/description/
