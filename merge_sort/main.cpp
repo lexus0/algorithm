@@ -10,11 +10,34 @@ void print_vector(vector<int>& nums){
 	cout << *nums_iter << ", ";
 	nums_iter += 1;
     }
-    cout << "]" ;
+    cout << "]" << endl;
 }
 
 class Solution {
 public:
+    void merge_sort(vector<int>& nums_input){
+	if (nums_input.size() <= 1)
+	    return;
+	else if (nums_input.size() == 2){
+	    if (nums_input[0] > nums_input[1]){
+		int tmp = nums_input[0];
+	    	nums_input[0] =  nums_input[1];
+		nums_input[1] = tmp; 
+		}
+	    }
+	else{
+	    int midle_size = nums_input.size()/2;
+	    cout << midle_size << endl;
+	    vector<int>::iterator start = nums_input.begin();
+	    vector<int>::iterator midle = start + midle_size;
+	    vector<int> left(start, midle);
+	    vector<int> right(midle, nums_input.end());
+	    merge_sort(left);
+	    merge_sort(right);
+	    merge(left, left.size(), right, right.size());
+	    nums_input = left;
+	}
+    }
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
     	vector<int>::iterator nums1_iter = nums1.begin(); 	 
     	vector<int>::iterator nums2_iter = nums2.begin();	 
@@ -52,17 +75,20 @@ public:
 	    nums1.push_back(sortedVecotr[m+i]);
 	*/
 	nums1 = sortedVecotr;
-	print_vector(nums1);
+	//print_vector(nums1);
     }
 };
 
 int main(){
   Solution mySol = Solution();
+  /*
   int num1_base[] = {1, 2, 4, 5, 6};
-  int num2_base[] = {3, 7, 8, 9, 10};
+  int num2_base[] = {7, 3, 8, 9, 10};
   vector<int> num1(num1_base, num1_base + sizeof(num1_base)/sizeof(int));
   vector<int> num2(num2_base, num2_base + sizeof(num2_base)/sizeof(int));
   mySol.merge(num1, num1.size(), num2, num2.size());
+  */
+
   /*
   int num1_base[] = {0};
   int num2_base[] = {1};
@@ -70,4 +96,9 @@ int main(){
   vector<int> num2(num2_base, num2_base + sizeof(num2_base)/sizeof(int));
   mySol.merge(num1, 0, num2, 1);
   */
+  
+  int num1_base[] = {1, 2, 4, 5, 6, 7, 3, 8, 9, 10};
+  vector<int> num1(num1_base, num1_base + sizeof(num1_base)/sizeof(int));
+  mySol.merge_sort(num1);
+  print_vector(num1);
 }
